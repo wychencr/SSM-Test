@@ -1,10 +1,3 @@
----
-title: 使用IDEA整合SSM框架
-date: 2018-11-01 16:35:29
-tags: [Java,Spring,SpringMVC,MyBatis]
-categories: java
----
-
 
 
 ## 一、安装环境和开发工具
@@ -459,7 +452,7 @@ categories: java
 
 
 
-- 新建数据库资源文件jdbc.properties，针对不同的数据库需要修改配置 同时要注意匹配数据库的版本号，比如我安装的是MySQL 8.0，之前由于驱动版本弄错了，所以总是连接数据库失败，后来改成5.1.46才解决了问题
+- 新建数据库资源文件jdbc.properties，针对不同的数据库需要修改配置 同时要**注意匹配数据库的版本号**，比如我安装的是MySQL 8.0，之前由于驱动版本弄错了，所以总是连接数据库失败，后来改成5.1.46才解决了问题
 
   ```properties
   # 针对不同的数据库需要修改配置 同时要注意匹配数据库的版本号
@@ -880,3 +873,54 @@ public class UserController {
 </html>
 ```
 
+
+
+## 四、部署项目
+
+### 1、Tomcat配置
+
+
+
+![](http://ww1.sinaimg.cn/large/e4eff812gy1fwsukh27f2j20tc0j7t95.jpg)
+
+![](http://ww1.sinaimg.cn/large/e4eff812gy1fwsumk20pxj20tn0jnmx7.jpg)
+
+### 2、启动服务器
+
+- 浏览器访问**http://localhost:8080/login**
+
+  ![](http://ww1.sinaimg.cn/large/e4eff812gy1fwsutuj71zj207409wjr7.jpg)
+
+
+
+- 填写错误的用户名或者密码，浏览器将重新返回登录界面，控制台显示如下：
+
+  ![](http://ww1.sinaimg.cn/large/e4eff812gy1fwsuspm2ubj20e904qmwy.jpg)
+
+
+
+- 填写正确的用户名Tom和密码123，跳转到登录成功界面user.jsp，显示如下：
+
+  ![](http://ww1.sinaimg.cn/large/e4eff812gy1fwsuvok07jj20dq064glg.jpg)
+
+- 以上说明SSM框架整合成功。
+
+
+
+## 五、一些注意事项
+
+- MySQL的驱动要匹配本机安装的版本
+
+- resources文件夹要被标记为Resource Root
+
+- xml配置文件中的classpath相当于/resources
+
+- IDEA可能会提示上下文配置文件没有添加，只要打开工程结构选项，把当前xml文件添加到工程中即可
+
+- 注意各个xml配置文件中扫描包的位置，如果有遗漏就会报错
+
+- 注意各个jar包的版本问题，我原来使用最新的Mybatis 3.4.6就会出现报错
+
+  > java.lang.IllegalAccessError: org.apache.commons.dbcp.DelegatingPreparedStatement.isClosed()
+
+  修改版本为3.2.6后解决问题
